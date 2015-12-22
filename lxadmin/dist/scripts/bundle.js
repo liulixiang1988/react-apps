@@ -28262,6 +28262,31 @@ module.exports = About;
 
 var React = require('react');
 
+var Header = React.createClass({displayName: "Header",
+    render: function(){
+        return (
+            React.createElement("nav", {className: "navbar navbar-default"}, 
+                React.createElement("div", {className: "container-fluid"}, 
+                    React.createElement("a", {href: "/", className: "navbar-brand"}, 
+                        React.createElement("img", {src: "images/logo.jpg", style: {height:'20px', width: '20px', borderRadius: '500rem'}})
+                    ), 
+                    React.createElement("ul", {className: "nav navbar-nav"}, 
+                        React.createElement("li", null, React.createElement("a", {href: "/"}, "首页")), 
+                        React.createElement("li", null, React.createElement("a", {href: "/#about"}, "关于"))
+                    )
+                )
+            )
+            );
+    }
+});
+
+module.exports = Header;
+
+},{"react":159}],162:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
 //创建组件
 var Home = React.createClass({displayName: "Home",
     render: function () {
@@ -28277,12 +28302,13 @@ var Home = React.createClass({displayName: "Home",
 //最后别忘了导出Home组件
 module.exports = Home;
 
-},{"react":159}],162:[function(require,module,exports){
+},{"react":159}],163:[function(require,module,exports){
 $ = jQuery = require('jquery'); //全局变量
 var React = require('react');
 var ReactDom = require('react-dom');
 var Home = require('./components/homePage');
 var About = require('./components/about/aboutPage');
+var Header = require('./components/common/header');
 
 (function (win) {
     "use strict";
@@ -28295,6 +28321,7 @@ var About = require('./components/about/aboutPage');
             }
             return (
                 React.createElement("div", null, 
+                    React.createElement(Header, null), 
                     React.createElement(Child, null)
                 )
                 );
@@ -28311,4 +28338,4 @@ var About = require('./components/about/aboutPage');
     render();
 })(window);
 
-},{"./components/about/aboutPage":160,"./components/homePage":161,"jquery":2,"react":159,"react-dom":3}]},{},[162]);
+},{"./components/about/aboutPage":160,"./components/common/header":161,"./components/homePage":162,"jquery":2,"react":159,"react-dom":3}]},{},[163]);

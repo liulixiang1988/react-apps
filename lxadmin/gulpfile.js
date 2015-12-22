@@ -15,6 +15,7 @@ var config = {
     paths: {
         html: './src/*.html',
         js: './src/**/*.js',
+        images: './src/images/*',
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
             'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
@@ -66,6 +67,18 @@ gulp.task('css', function () {
         .pipe(connect.reload());
 });
 
+//从源码目录拷贝到目标目录
+//在这里可以对图片进行优化
+gulp.task('images', function(){
+    gulp.src(config.paths.images)
+        .pipe(gulp.dest(config.paths.dist + '/images'))
+        .pipe(connect.reload());
+
+    //发布favicon
+    gulp.src('./src/favicon.ico')
+        .pipe(gulp.dest(config.paths.dist));
+});
+
 gulp.task('lint', function () {
     return gulp.src(config.paths.js)
         .pipe(lint({config: 'eslint.config.json'}))
@@ -80,4 +93,4 @@ gulp.task('watch', function(){
 });
 
 //Default css
-gulp.task('default', ['html', 'js', 'css', 'lint', 'open', 'watch']);
+gulp.task('default', ['html', 'js', 'css', 'images', 'lint', 'open', 'watch']);
