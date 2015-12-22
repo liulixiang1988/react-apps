@@ -28233,6 +28233,35 @@ module.exports = require('./lib/React');
 
 var React = require('react');
 
+var About = React.createClass({displayName: "About",
+    render: function(){
+        return (
+            React.createElement("div", null, 
+                React.createElement("h1", null, "关于"), 
+                React.createElement("p", null, 
+                    "这个应用使用了下面的一些技术："
+                ), 
+                React.createElement("ul", null, 
+                    React.createElement("li", null, "React"), 
+                    React.createElement("li", null, "React Router"), 
+                    React.createElement("li", null, "Flux"), 
+                    React.createElement("li", null, "Node"), 
+                    React.createElement("li", null, "Gulp"), 
+                    React.createElement("li", null, "Browserify"), 
+                    React.createElement("li", null, "Bootstrap")
+                )
+            )
+            );
+    }
+});
+
+module.exports = About;
+
+},{"react":159}],161:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
 //创建组件
 var Home = React.createClass({displayName: "Home",
     render: function () {
@@ -28248,14 +28277,38 @@ var Home = React.createClass({displayName: "Home",
 //最后别忘了导出Home组件
 module.exports = Home;
 
-},{"react":159}],161:[function(require,module,exports){
+},{"react":159}],162:[function(require,module,exports){
 $ = jQuery = require('jquery'); //全局变量
-
 var React = require('react');
 var ReactDom = require('react-dom');
-
 var Home = require('./components/homePage');
+var About = require('./components/about/aboutPage');
 
-ReactDom.render(React.createElement(Home, null), document.getElementById('app'));
+(function (win) {
+    "use strict";
+    var App = React.createClass({displayName: "App",
+        render: function(){
+            var Child;
+            switch(this.props.route){
+                case 'about': Child = About; break;
+                default: Child = Home;
+            }
+            return (
+                React.createElement("div", null, 
+                    React.createElement(Child, null)
+                )
+                );
+        }
+    });
 
-},{"./components/homePage":160,"jquery":2,"react":159,"react-dom":3}]},{},[161]);
+    function render(){
+        var route = win.location.hash.substr(1);
+        ReactDom.render(React.createElement(App, {route: route}), document.getElementById('app'));
+    }
+
+    win.addEventListener('hashchange', render);
+
+    render();
+})(window);
+
+},{"./components/about/aboutPage":160,"./components/homePage":161,"jquery":2,"react":159,"react-dom":3}]},{},[162]);
