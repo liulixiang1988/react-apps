@@ -1,5 +1,8 @@
 $ = jQuery = require('jquery'); //全局变量
 
-var App = console.log("Hello world from browserify");
+var React = require('react');
+var ReactDom = require('react-dom');
 
-module.exports = App;
+var Home = require('./components/homePage');
+
+ReactDom.render(<Home />, document.getElementById('app'));

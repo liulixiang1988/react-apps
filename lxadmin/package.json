@@ -20,6 +20,7 @@
     "history": "^1.13.1",
     "jquery": "^2.1.4",
     "react": "^0.14.3",
+    "react-dom": "^0.14.3",
     "react-router": "^1.0.2",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
