@@ -38,7 +38,8 @@ gulp.task("connect", function(){
 //Open url in web browser
 gulp.task('open', ['connect'], function () {
     gulp.src('dist/index.html')
-        .pipe(open({ uri: config.devBaseUrl+':'+config.port+'/', app: 'Google Chrome'}));
+        //.pipe(open({ uri: config.devBaseUrl+':'+config.port+'/', app: 'Google Chrome'}));
+        .pipe(open({ uri: config.devBaseUrl+':'+config.port+'/'}));
 });
 
 //Copy html to dist folder
