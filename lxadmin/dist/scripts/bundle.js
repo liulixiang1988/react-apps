@@ -40690,16 +40690,10 @@ module.exports = About;
 "use strict";
 
 var React = require('react');
-var AuthorApi = require('../../api/authorApi');
 
-var Authors = React.createClass({displayName: "Authors",
-    getInitialState: function(){
-        return {
-            authors: []
-        };
-    },
-    componentWillMount: function(){
-        this.setState({authors: AuthorApi.getAllAuthors() });
+var AuthorList = React.createClass({displayName: "AuthorList",
+    propTypes: {
+        authors: React.PropTypes.array.isRequired
     },
     render: function(){
         var createAuthorRow = function(author){
@@ -40710,8 +40704,7 @@ var Authors = React.createClass({displayName: "Authors",
         };
         return (
             React.createElement("div", null, 
-                React.createElement("h1", null, "作者"), 
-                React.createElement("table", null, 
+                React.createElement("table", {className: "table"}, 
                     React.createElement("thead", null, 
                         React.createElement("tr", null, 
                         React.createElement("th", null, "ID"), 
@@ -40719,17 +40712,46 @@ var Authors = React.createClass({displayName: "Authors",
                         )
                     ), 
                     React.createElement("tbody", null, 
-                        this.state.authors.map(createAuthorRow, this)
+                        this.props.authors.map(createAuthorRow, this)
                     )
                 )
             )
-            )
+            );
     }
 });
 
-module.exports = Authors;
+module.exports = AuthorList;
 
-},{"../../api/authorApi":161,"react":160}],165:[function(require,module,exports){
+},{"react":160}],165:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var AuthorApi = require('../../api/authorApi');
+var AuthorList = require('./authorList');
+var AuthorPage = React.createClass({displayName: "AuthorPage",
+    getInitialState: function(){
+        return {
+            authors: []
+        };
+    },
+    componentDidMount: function(){
+        if(this.isMounted()){
+            this.setState({authors: AuthorApi.getAllAuthors() });
+        }
+    },
+    render: function(){
+        return (
+            React.createElement("div", null, 
+                React.createElement("h1", null, "作者"), 
+                React.createElement(AuthorList, {authors: this.state.authors})
+            )
+            );
+    }
+});
+
+module.exports = AuthorPage;
+
+},{"../../api/authorApi":161,"./authorList":164,"react":160}],166:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -40755,7 +40777,7 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-},{"react":160}],166:[function(require,module,exports){
+},{"react":160}],167:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -40775,7 +40797,7 @@ var Home = React.createClass({displayName: "Home",
 //最后别忘了导出Home组件
 module.exports = Home;
 
-},{"react":160}],167:[function(require,module,exports){
+},{"react":160}],168:[function(require,module,exports){
 $ = jQuery = require('jquery'); //全局变量
 var React = require('react');
 var ReactDom = require('react-dom');
@@ -40813,4 +40835,4 @@ var Header = require('./components/common/header');
     render();
 })(window);
 
-},{"./components/about/aboutPage":163,"./components/authors/authorPage":164,"./components/common/header":165,"./components/homePage":166,"jquery":2,"react":160,"react-dom":4}]},{},[167]);
+},{"./components/about/aboutPage":163,"./components/authors/authorPage":165,"./components/common/header":166,"./components/homePage":167,"jquery":2,"react":160,"react-dom":4}]},{},[168]);

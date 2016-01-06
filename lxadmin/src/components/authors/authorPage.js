@@ -2,40 +2,26 @@
 
 var React = require('react');
 var AuthorApi = require('../../api/authorApi');
-
-var Authors = React.createClass({
+var AuthorList = require('./authorList');
+var AuthorPage = React.createClass({
     getInitialState: function(){
         return {
             authors: []
         };
     },
-    componentWillMount: function(){
-        this.setState({authors: AuthorApi.getAllAuthors() });
+    componentDidMount: function(){
+        if(this.isMounted()){
+            this.setState({authors: AuthorApi.getAllAuthors() });
+        }
     },
     render: function(){
-        var createAuthorRow = function(author){
-            return (<tr key={author.id}>
-                        <td><a href={'#authors/' + author.id}>{author.id}</a></td>
-                        <td>{author.firstName} {author.lastName}</td>
-                    </tr>);
-        };
         return (
             <div>
                 <h1>作者</h1>
-                <table>
-                    <thead>
-                        <tr>
-                        <th>ID</th>
-                        <th>姓名</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.authors.map(createAuthorRow, this)}
-                    </tbody>
-                </table>
+                <AuthorList authors={this.state.authors}/>
             </div>
-            )
+            );
     }
 });
 
-module.exports = Authors;
+module.exports = AuthorPage;
