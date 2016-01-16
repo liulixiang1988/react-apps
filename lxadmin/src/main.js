@@ -1,36 +1,9 @@
 $ = jQuery = require('jquery'); //全局变量
 var React = require('react');
 var ReactDom = require('react-dom');
-var Home = require('./components/homePage');
-var Authors = require('./components/authors/authorPage');
-var About = require('./components/about/aboutPage');
-var Header = require('./components/common/header');
+var Router = require('reqct-router');
+var routes = require('./routes');
 
-(function (win) {
-    "use strict";
-    var App = React.createClass({
-        render: function(){
-            var Child;
-            switch(this.props.route){
-                case 'about': Child = About; break;
-                case 'authors': Child = Authors; break;
-                default: Child = Home;
-            }
-            return (
-                <div>
-                    <Header />
-                    <Child />
-                </div>
-                );
-        }
-    });
-
-    function render(){
-        var route = win.location.hash.substr(1);
-        ReactDom.render(<App route={route} />, document.getElementById('app'));
-    }
-
-    win.addEventListener('hashchange', render);
-
-    render();
-})(window);
+Router.run(routes, function(Handler){
+    Render.render(<Handler/>, document.getElementById('app'))
+});
