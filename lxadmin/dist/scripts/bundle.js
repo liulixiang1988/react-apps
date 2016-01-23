@@ -45243,19 +45243,20 @@ module.exports = AuthorPage;
 "use strict";
 
 var React = require('react');
+var Link = require('react-router').Link;
 
 var Header = React.createClass({displayName: "Header",
     render: function(){
         return (
             React.createElement("nav", {className: "navbar navbar-default"}, 
                 React.createElement("div", {className: "container-fluid"}, 
-                    React.createElement("a", {href: "/", className: "navbar-brand"}, 
+                    React.createElement(Link, {to: "/", className: "navbar-brand"}, 
                         React.createElement("img", {src: "images/logo.jpg", style: {height:'20px', width: '20px', borderRadius: '500rem'}})
                     ), 
                     React.createElement("ul", {className: "nav navbar-nav"}, 
-                        React.createElement("li", null, React.createElement("a", {href: "/"}, "首页")), 
-                        React.createElement("li", null, React.createElement("a", {href: "/#authors"}, "作者")), 
-                        React.createElement("li", null, React.createElement("a", {href: "/#about"}, "关于"))
+                        React.createElement("li", null, React.createElement(Link, {to: "/"}, "首页")), 
+                        React.createElement("li", null, React.createElement(Link, {to: "authors"}, "作者")), 
+                        React.createElement("li", null, React.createElement(Link, {to: "about"}, "关于"))
                     )
                 )
             )
@@ -45265,10 +45266,11 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-},{"react":211}],219:[function(require,module,exports){
+},{"react":211,"react-router":49}],219:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
+var Link = require('react-router').Link;
 
 //创建组件
 var Home = React.createClass({displayName: "Home",
@@ -45276,7 +45278,8 @@ var Home = React.createClass({displayName: "Home",
         return (
             React.createElement("div", {className: "jumbotron"}, 
                 React.createElement("h1", null, "后台管理"), 
-                React.createElement("p", null, "使用React, React-Router和Flux来创建App")
+                React.createElement("p", null, "使用React, React-Router和Flux来创建App"), 
+                React.createElement(Link, {to: "about", className: "btn btn-lg btn-primary"}, "更多")
             )
             );
     }
@@ -45285,7 +45288,29 @@ var Home = React.createClass({displayName: "Home",
 //最后别忘了导出Home组件
 module.exports = Home;
 
-},{"react":211}],220:[function(require,module,exports){
+},{"react":211,"react-router":49}],220:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var Link = require('react-router').Link;
+
+//创建组件
+var NotFoundPage = React.createClass({displayName: "NotFoundPage",
+    render: function () {
+        return (
+            React.createElement("div", {className: "jumbotron"}, 
+                React.createElement("h1", null, "404"), 
+                React.createElement("p", null, "没有找到对应的页面"), 
+                React.createElement("p", null, React.createElement(Link, {to: "/", className: "btn btn-lg btn-primary"}, "更多"))
+            )
+        );
+    }
+});
+
+//最后别忘了导出Home组件
+module.exports = NotFoundPage;
+
+},{"react":211,"react-router":49}],221:[function(require,module,exports){
 "use strict";
 
 var ReactDom = require('react-dom');
@@ -45294,7 +45319,7 @@ var routes = require('./routes');
 
 ReactDom.render(routes, document.getElementById('app'));
 
-},{"./routes":221,"react":211,"react-dom":29}],221:[function(require,module,exports){
+},{"./routes":222,"react":211,"react-dom":29}],222:[function(require,module,exports){
 "use strict";
 
 //引入Router
@@ -45311,11 +45336,12 @@ var routes = (
         React.createElement(Route, {path: "/", component: require('./components/app')}, 
             React.createElement(IndexRoute, {component: require('./components/homePage')}), 
             React.createElement(Route, {path: "authors", component: require('./components/authors/authorPage')}), 
-            React.createElement(Route, {path: "about", component: require('./components/about/aboutPage')})
+            React.createElement(Route, {path: "about", component: require('./components/about/aboutPage')}), 
+            React.createElement(Route, {path: "*", component: require('./components/notFoundPage')})
         )
     )
 );
 
 module.exports = routes;
 
-},{"./components/about/aboutPage":214,"./components/app":215,"./components/authors/authorPage":217,"./components/homePage":219,"react":211,"react-router":49}]},{},[220]);
+},{"./components/about/aboutPage":214,"./components/app":215,"./components/authors/authorPage":217,"./components/homePage":219,"./components/notFoundPage":220,"react":211,"react-router":49}]},{},[221]);

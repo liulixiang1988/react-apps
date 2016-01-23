@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require('react');
+var Link = require('react-router').Link;
 
 //创建组件
 var Home = React.createClass({
@@ -9,6 +10,7 @@ var Home = React.createClass({
             <div className="jumbotron">
                 <h1>后台管理</h1>
                 <p>使用React, React-Router和Flux来创建App</p>
+                <Link to="about" className="btn btn-lg btn-primary">更多</Link>
             </div>
             );
     }
