@@ -1,20 +1,22 @@
 "use strict";
 
-var React = require('react');
-
 //引入Router
-var Router = require('react-router');
-//为了使用方便，我们把DefaultRoute和Route声明为变量
-var DefaultRoute = Router.DefaultRoute;
-var Route = Router.Route;
+var React = require('react');
+var ReactRouter = require('react-router');
+var Router = ReactRouter.Router;
+//为了使用方便，我们把IndexRoute和Route声明为变量
+var IndexRoute = ReactRouter.IndexRoute;
+var Route = ReactRouter.Route;
 
 //路由映射
 var routes = (
-    <Route name="app" path="/" handler={require('./components/app')}>
-        <DefaultRoute handler={require('./components/homePage')} />
-        <Route name="authors" handler={require('./components/authors/authorPage')} />
-        <Route name="about" handler={require('./components/about/aboutPage')} />
-    </Route>
+    <Router>
+        <Route path="/" component={require('./components/app')}>
+            <IndexRoute component={require('./components/homePage')}/>
+            <Route path="authors" component={require('./components/authors/authorPage')}/>
+            <Route path="about" component={require('./components/about/aboutPage')}/>
+        </Route>
+    </Router>
 );
 
 module.exports = routes;

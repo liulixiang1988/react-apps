@@ -1,9 +1,7 @@
-$ = jQuery = require('jquery'); //全局变量
-var React = require('react');
+"use strict";
+
 var ReactDom = require('react-dom');
-var Router = require('reqct-router');
+var React = require('react');
 var routes = require('./routes');
 
-Router.run(routes, function(Handler){
-    Render.render(<Handler/>, document.getElementById('app'))
-});
+ReactDom.render(routes, document.getElementById('app'));
