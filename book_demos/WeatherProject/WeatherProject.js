@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   cityName: {
     width: 50,
     height: baseFontSize,
+    textAlign:'center',
   },
   mainText: {
     flex: 1,
@@ -93,15 +94,22 @@ export default class WeatherProject extends Component {
 
   _getWeatherInfo(city_code){
     let url = 'https://api.heweather.com/x3/weather?cityid='+city_code+'&key=ef29baab02f049adaa4ce2afba6f29b9';
+    console.log(url);
     fetch(url)
       .then((response)=>response.json())
       .then((responseJson)=>{
         let weatherInfo = responseJson["HeWeather data service 3.0"][0];
         console.log(weatherInfo);
+        var description = null
+        if (weatherInfo.aqi&&weatherInfo.aqi.city.qlty){
+          description = weatherInfo.aqi.city.qlty;
+        } else {
+          description = weatherInfo.daily_forecast[0].wind.dir+" "+weatherInfo.daily_forecast[0].wind.sc+"级"
+        }
         this.setState({
           forecast:{
-            main: weatherInfo.daily_forecast[0].cond.txt_n,
-            description: weatherInfo.aqi.city.qlty,
+            main: weatherInfo.daily_forecast[0].cond.txt_d,
+            description: description,
             temp: weatherInfo.daily_forecast[0].tmp.min+'~'+weatherInfo.daily_forecast[0].tmp.max
           }
         });

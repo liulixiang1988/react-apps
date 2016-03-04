@@ -36,7 +36,7 @@ export default class Forecast extends Component {
           {this.props.main}
         </Text>
         <Text style={styles.mainText}>
-          当前天气：{this.props.description}
+          {this.props.description}
         </Text>
         <Text style={styles.bigText}>
           {this.props.temp}°C
