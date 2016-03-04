@@ -1,0 +1,13 @@
+{
+  "name": "WeatherProject",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "clean:babelrc": "find ./node_modules -name react-packager -prune -o -name '.babelrc' -print | xargs rm -f",
+    "postinstall": "npm run clean:babelrc",
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react-native": "^0.21.0"
+  }
+}
